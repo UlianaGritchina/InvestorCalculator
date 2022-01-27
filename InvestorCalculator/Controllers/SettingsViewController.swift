@@ -12,7 +12,6 @@ class SettingsViewController:
     UIViewController {
     
     @IBOutlet weak var termSC: UISegmentedControl!
-    
     @IBOutlet weak var saveButton: UIButton!
     
     var delegate: SettingsViewControllerDelegate!

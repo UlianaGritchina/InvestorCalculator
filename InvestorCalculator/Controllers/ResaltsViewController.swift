@@ -19,16 +19,34 @@ class ResaltsViewController: UIViewController {
     var resaltModel: Resalts!
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         readyButton.layer.cornerRadius = 10
-        resaltLable.text = String(resaltModel.mainResalt)
-        sumLable.text = String(resaltModel.sum)
-        procentsLable.text = String(resaltModel.proc)
+        resaltLable.text = formated(number: resaltModel.mainResalt)
+        sumLable.text = formated(number: resaltModel.sum)
+        procentsLable.text = formated(number: resaltModel.proc)
     }
     
     @IBAction func radyButtonPressed() {
         dismiss(animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let listVC = segue.destination as? ListResaltsTableViewController else { return }
+        listVC.resaltModel = resaltModel
+    }
+}
+
+extension ResaltsViewController {
+    private func formated(number: Float) -> String {
+        
+        let newNumber = Float(number)
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = " "
+        formatter.decimalSeparator = ","
+        
+        
+        return formatter.string(from: NSNumber(value: newNumber)) ?? ""
     }
 }
